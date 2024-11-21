@@ -1,0 +1,92 @@
+/* Apply to the entire page to prevent horizontal scrolling */
+html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-size: 1.1rem;
+}
+
+/* Main container for the form and charts */
+.container {
+    background-color: #f9fcff;
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+}
+
+/* Style for the form container */
+.form-container {
+    background-color: #e8f5e9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+#month,#week,#startTime,#endTime,#addMeetingButton,#myChart{
+    font-size: 15px;
+}
+/* Style for the form elements */
+.form-container label {
+    display: block;
+    font-weight:lighter;
+    margin-bottom: 5px;
+}
+
+.form-container select,
+.form-container input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Style for the chart containers */
+.bar-chart-container {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-container,
+    .bar-chart-container {
+        padding: 10px;
+    }
+}

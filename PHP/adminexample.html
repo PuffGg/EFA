@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f6fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #0078d7;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #0078d7;
+        }
+
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .link-item {
+            padding: 20px;
+            text-align: center;
+            background-color: #0078d7;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .link-item:hover {
+            background-color: #005fa3;
+        }
+
+        .restricted {
+            filter: blur(4px);
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .highlight {
+            border: 2px solid #ffcc00;
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Administrator Dashboard
+    </header>
+
+    <main>
+        <h2>Welcome, [Admin Name]</h2>
+        <p>Select a section to manage or proceed to your dashboard:</p>
+
+        <div class="links">
+            <!-- Example of links -->
+            <a href="administration.php" class="link-item full-access">Administration</a>
+            <a href="charity.php" class="link-item restricted">Charity</a>
+            <a href="special-needs.php" class="link-item restricted">Special Needs</a>
+            <a href="project-management.php" class="link-item restricted">Project Management</a>
+            <a href="youth-initiative.php" class="link-item restricted">Youth Initiative</a>
+            <a href="advisory-board.php" class="link-item restricted">Advisory Board</a>
+            <a href="dashboard.php" class="link-item highlight">My Dashboard</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Organization Name. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let role = '<?php echo $role; ?>';
+        const restrictedLinks = document.querySelectorAll('.restricted');
+        const highlightLink = document.querySelector('.highlight');
+
+        if (role === 'limited-admin') {
+            restrictedLinks.forEach(link => link.classList.add('restricted'));
+        } else {
+            // Remove blur for full-access roles
+            restrictedLinks.forEach(link => link.classList.remove('restricted'));
+            highlightLink.classList.remove('highlight');
+        }
+    });
+</script>
+
+</html>

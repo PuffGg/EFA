@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Time vs Money Chart with Filters</title>
+    
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Include Chart.js Zoom plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 1000px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .button-group {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .button-group button:hover {
+            background-color: #45a049;
+        }
+        canvas {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Yearly Savings vs Money (KSH)</h2>
+
+        <!-- Filter Buttons -->
+        <div class="button-group">
+            <button onclick="applyFilter(100, 1000)">100-1000 KSH</button>
+            <button onclick="applyFilter(500, 10000)">500-10000 KSH</button>
+            <button onclick="applyFilter(100, 10000)">100-10000 KSH</button>
+            <button onclick="resetFilter()">Reset Filter</button>
+        </div>
+
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        // Create chart data
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const data = {
+            labels: ['2020', '2021', '2022', '2023', '2024'], // Example year data
+            datasets: [{
+                label: 'Savings in KSH',
+                data: [500, 1500, 3000, 5500, 10000], // Example savings in KSH
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+            }]
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'category', // Treat x-axis as categorical (years)
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Money (KSH)'
+                        },
+                        beginAtZero: true, // Ensure the chart starts at 0 on the Y-axis
+                        min: 0,   // Minimum zoom range on Y-axis
+                        max: 12000, // Maximum zoom range on Y-axis
+                    }
+                }
+            }
+        };
+
+        // Initialize the chart
+        const myChart = new Chart(ctx, config);
+
+        // Function to apply the selected filter to the Y-axis
+        function applyFilter(min, max) {
+            myChart.options.scales.y.min = min;
+            myChart.options.scales.y.max = max;
+            myChart.update();
+        }
+
+        // Function to reset the filter to default range
+        function resetFilter() {
+            myChart.options.scales.y.min = 0;
+            myChart.options.scales.y.max = 12000;
+            myChart.update();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Needs Department Dashboard | Ebenezer Foundation Africa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+/* Base Reset and Root Variables */
+
+/* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Responsive Typography */
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 1rem;
+}
+
+/* Responsive Header */
+header {
+    background-color: #2563eb;
+    color: var(--card-background);
+    padding: 1rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+header h1 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+}
+
+/* Dashboard Layout */
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #f59e0b;
+ 
+    padding: 1rem;
+    flex: 1 1 250px;
+
+}
+
+.sidebar ul {
+    list-style-type: none;
+}
+
+.sidebar ul li {
+    margin: 1rem 0;
+}
+
+.sidebar ul li a {
+    color: var(--card-background);
+    text-decoration: none;
+    display: block;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: white;
+}
+
+/* Main Content */
+.main-content {
+    flex: 2 1 60%;
+    min-width: 300px;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+/* Flexible Card Layout */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background-color: rgba(18, 104, 153, 0.11);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card .icon {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.card .button {
+    background-color: rgba(0, 0, 255, 0.151);
+    color: var(--card-background);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card .button:hover {
+    background-color: green;
+}
+
+/* Warning Button Example */
+.warning-button {
+    background-color: var(--warning-color);
+    color: var(--card-background);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.warning-button:hover {
+    background-color: #e8a400;
+}
+
+/* Table Styling */
+.section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background-color: #f59e0b;
+    box-shadow: black;
+    border-radius: 10px;
+}
+
+.section table th, 
+.section table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgb(44, 57, 250);
+}
+
+.section table th {
+    background-color: rgb(255, 255, 255);
+    color: var(--card-background);
+}
+
+.section table tr:hover {
+    background-color: var(--border-color);
+}
+
+/* Calendar Section */
+.calendar {
+    margin-top: 2rem;
+}
+
+/* Footer */
+footer {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--card-background);
+}
+
+/* Warning Alert Box */
+.alert-warning {
+    background-color: var(--warning-color);
+    color: var(--card-background);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    margin-top: 2rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Responsive Design Adjustments */
+@media screen and (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        flex: 1 0 100%;
+    }
+
+    .main-content {
+        flex: 1 0 100%;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .section table {
+        font-size: 0.9rem;
+    }
+
+    .section table th, 
+    .section table td {
+        padding: 0.5rem;
+    }
+}
+
+/* Additional Micro-Interactions */
+*:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        padding: 0.5rem;
+    }
+
+    .sidebar ul li {
+        margin: 0.5rem 0;
+    }
+
+    .sidebar ul li a {
+        padding: 0.35rem;
+        display: flex; 
+        align-items: center;
+    }
+
+    .sidebar ul li a i {
+        margin-right: 0.5rem;
+        font-size: 0.9em;
+    }
+}
+
+/* Mobile-specific ultra-narrow screens */
+@media screen and (max-width: 375px) {
+    .sidebar {
+        padding: 0.25rem;
+    }
+
+    .sidebar ul li a {
+        font-size: 0.9em;
+        padding: 0.25rem;
+    }
+}
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1> Special Needs Department Dashboard</h1>
+    </header>
+
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul>
+                <li><a href="#beneficiaries"><i class="fas fa-users"></i> Beneficiary Management</a></li>
+                <li><a href="#programs"><i class="fas fa-cogs"></i> Program Management</a></li>
+                
+                <li><a href="#funding"><i class="fas fa-dollar-sign"></i> Donations & Funding</a></li>
+                <li><a href="#reports"><i class="fas fa-chart-line"></i> Reports & Analytics</a></li>
+                <li><a href="#calendar"><i class="fas fa-calendar-alt"></i> Calendar & Reminders</a></li>
+                <li><a href="#resources"><i class="fas fa-book"></i> Resources Library</a></li>
+                <li><a href="#feedback"><i class="fas fa-comment-dots"></i> Feedback & Suggestions</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="container">
+                <!-- KPIs -->
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Total Beneficiaries</h3>
+                    <p>250</p>
+                    <button class="button">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Monthly Funding</h3>
+                    <p>$50,000</p>
+                    <button class="button">View Details</button>
+                </div>
+
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Ongoing Programs</h3>
+                    <p>5</p>
+                    <button class="button">View Programs</button>
+                </div>
+
+                <div class="card">
+                    <div class="icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Staff On-Call</h3>
+                    <p>10</p>
+                    <button class="button">View Staff</button>
+                </div>
+            </div>
+
+            <!-- Beneficiary Management Section -->
+            <section class="section" id="beneficiaries">
+                <h2>Beneficiary Management</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Diagnosis</th>
+                            <th>Support Level</th>
+                            <th>Assigned Staff</th>
+                            <th>Enrollment Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample Data - dynamically generated in real case -->
+                        <tr>
+                            <td>John Doe</td>
+                            <td>10</td>
+                            <td>Autism</td>
+                            <td>High</td>
+                            <td>Jane Smith</td>
+                            <td>2022-05-15</td>
+                            <td><button class="button">View Profile</button></td>
+                        </tr>
+                        <tr>
+                            <td>Jane Doe</td>
+                            <td>14</td>
+                            <td>Down Syndrome</td>
+                            <td>Medium</td>
+                            <td>Mark Johnson</td>
+                            <td>2021-07-21</td>
+                            <td><button class="button">View Profile</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Calendar Section -->
+            <section class="calendar" id="calendar">
+                <h2>Department Calendar</h2>
+                <p>Upcoming sessions, meetings, and events are displayed here.</p>
+                <div id="calendar-container">
+                    <!-- Calendar implementation can go here -->
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <p>&copy; 2024 Ebenezer Foundation Africa. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+</body>
+
+</html>

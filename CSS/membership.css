@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f3f4f6;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.box {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.box h3 {
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.box p {
+    font-size: 1.5rem;
+    color: #0073e6;
+    font-weight: bold;
+}
+
+.box.total-meetings, 
+.box.total-attendance,
+.box.total-missed,
+.box.note {
+    background-color: #e9f5ff;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+}
+
+.note a {
+    color: #0073e6;
+    text-decoration: none;
+    display: block;
+    padding: 15px 0;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 15px;
+    text-align: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin-top: 10px;
+}

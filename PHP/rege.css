@@ -1,0 +1,171 @@
+body {
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  overflow-x: hidden;
+  font-family: 'Roboto', sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Pseudo-element to handle background image with lower opacity */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('efa1.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.con1 {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+    margin: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+h1 {
+    color: #2d3748;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.con2 {
+    margin: 1rem 0;
+}
+
+label {
+    display: block;
+    color: #2d3748;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1.5px solid rgba(226, 232, 240, 0.8);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+button {
+    width: 100%;
+    padding: 0.875rem;
+    background: rgba(66, 153, 225, 0.9);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+button:hover {
+    background: rgba(58, 219, 66, 0.95);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+}
+
+#p1 {
+    text-align: center;
+    color: #2d3748;
+    font-size: 0.9rem;
+    margin: 1rem 0;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+#p1 a {
+    color: #3182ce;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+#p1 a:hover {
+    color: #2c5282;
+}
+
+.error-msg {
+    display: block;
+    color: #e53e3e;
+    background: rgba(255, 245, 245, 0.9);
+    border: 1px solid rgba(254, 178, 178, 0.5);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+#loading-bar {
+    height: 3px;
+    background: linear-gradient(to right, rgba(66, 153, 225, 0.9), rgba(99, 179, 237, 0.9));
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+@media (max-width: 480px) {
+    .con1 {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    input, select, button {
+        padding: 0.625rem;
+    }
+}

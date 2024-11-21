@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard Settings</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f6f8;
+        }
+        .section-container {
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .section-content {
+            display: none;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        .setting-group {
+            margin-top: 10px;
+        }
+        .setting-group-title {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .setting-options {
+            margin-left: 15px;
+        }
+        .setting-option {
+            margin: 3px 0;
+        }
+    </style>
+    <script>
+        function toggleContent(event) {
+            const content = event.target.nextElementSibling;
+            content.style.display = content.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</head>
+<body>
+    <h1>Admin Dashboard Settings</h1>
+
+    <div id="settingsContainer">
+        <!-- User & Role Management Settings -->
+        <div class="section-container">
+            <div class="section-title" onclick="toggleContent(event)">User & Role Management Settings</div>
+            <div class="section-content">
+                <div class="setting-group">
+                    <div class="setting-group-title">Role Permissions</div>
+                    <div class="setting-options">
+                        <div class="setting-option">Admin permissions</div>
+                        <div class="setting-option">Moderator permissions</div>
+                        <div class="setting-option">User permissions</div>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <div class="setting-group-title">User Access Controls</div>
+                    <div class="setting-options">
+                        <div class="setting-option">Access control settings</div>
+                        <div class="setting-option">User access logs</div>
+                        <div class="setting-option">Restricted areas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Financial & Transactional Settings -->
+        <div class="section-container">
+            <div class="section-title" onclick="toggleContent(event)">Financial & Transactional Settings</div>
+            <div class="section-content">
+                <div class="setting-group">
+                    <div class="setting-group-title">Payment Gateway Integration</div>
+                    <div class="setting-options">
+                        <div class="setting-option">PayPal integration</div>
+                        <div class="setting-option">Stripe integration</div>
+                        <div class="setting-option">Bank transfer setup</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Platform Configuration -->
+        <div class="section-container">
+            <div class="section-title" onclick="toggleContent(event)">Platform Configuration</div>
+            <div class="section-content">
+                <div class="setting-group">
+                    <div class="setting-group-title">Branding</div>
+                    <div class="setting-options">
+                        <div class="setting-option">Logo upload</div>
+                        <div class="setting-option">Theme settings</div>
+                        <div class="setting-option">Color scheme</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="section-container">
+            <div class="section-title" onclick="toggleContent(event)">Notification Settings</div>
+            <div class="section-content">
+                <div class="setting-group">
+                    <div class="setting-group-title">Email Notifications</div>
+                    <div class="setting-options">
+                        <div class="setting-option">New user signup notifications</div>
+                        <div class="setting-option">System alerts</div>
+                        <div class="setting-option">Promotional emails</div>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <div class="setting-group-title">SMS Notifications</div>
+                    <div class="setting-options">
+                        <div class="setting-option">Transaction alerts</div>
+                        <div class="setting-option">Service updates</div>
+                        <div class="setting-option">Marketing messages</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div class="section-container">
+            <div class="section-title" onclick="toggleContent(event)">Security Settings</div>
+            <div class="section-content">
+                <div class="setting-group">
+                    <div class="setting-group-title">Access Control</div>
+                    <div class="setting-options">
+                        <div class="setting-option">User login tracking</div>
+                        <div class="setting-option">Account lockout settings</div>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <div class="setting-group-title">Data Encryption</div>
+                    <div class="setting-options">
+                        <div class="setting-option">Encryption for sensitive data</div>
+                        <div class="setting-option">API security keys</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    
+</script>
+</html>

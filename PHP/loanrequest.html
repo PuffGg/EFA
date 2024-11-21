@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Request Form</title>
+    <style>
+/* Modern CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #3b82f6;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --border-radius: 0.75rem;
+    --input-padding: 12px;
+    --button-padding: 14px;
+    --font-size: 16px;
+    --small-font-size: 14px;
+}
+
+/* General Body */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding: 2rem;
+    font-size: var(--font-size);
+}
+
+h2{text-align: center;}
+
+/* Form Container */
+.form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 24px;
+}
+
+label {
+    display: block;
+    font-size: var(--small-font-size);
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: var(--input-padding);
+    font-size: var(--font-size);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: var(--button-padding);
+    font-size: var(--font-size);
+    font-weight: 600;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgb(15, 235, 15)
+}
+
+/* Timeline Section */
+.timeline-container {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.timeline {
+    display: flex;
+    overflow-x: auto;
+    padding: 20px 0;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    border-top: 3px solid var(--border-color);
+    scroll-behavior: smooth;
+}
+
+.month {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: var(--card-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.month:hover {
+    background-color: var(--secondary-color);
+}
+
+.month:focus {
+    outline: none;
+    background-color: #003366;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+    }
+
+    input[type="number"], button {
+        font-size: 14px;
+    }
+
+    .timeline {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .month {
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <h2>Loan Request Form</h2>
+    <div class="form-container">
+        <form id="loanForm">
+            <div class="form-group">
+                <label for="loanAmount">Loan Request Amount (Ksh):</label>
+                <input type="number" id="loanAmount" name="loanAmount" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Monthly Interest Rate: <span id="interestRateLabel">10%</span></label>
+            </div>
+
+            <div class="form-group">
+                <label>Interest Amount (Ksh): <span id="interestAmount">0</span></label>
+            </div>
+
+            <div class="form-group">
+                <label>Total with Interest (Ksh): <span id="totalWithInterest">0</span></label>
+            </div>
+
+            <div class="form-group">
+                <label for="loanTerm">Loan Term (Months):</label>
+                <input type="number" id="loanTerm" name="loanTerm" min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label>Loan Status: <span id="loanStatus">Awaiting Approval</span></label>
+            </div>
+
+            <div class="form-group">
+                <label>Funds Sent To: <span id="paymentDestination">Bank Account XYZ123</span></label>
+            </div>
+
+            <button type="button" onclick="calculateLoan()">Calculate Loan</button>
+
+            <div class="output" id="output"></div>
+
+            <p><strong>Total Loan:</strong> Ksh <span id="totalWithInterest">0</span></p>
+            <p><strong>Total with Interest:</strong> Ksh <span id="totalWithInterest">0</span></p>
+            <p><strong>Remaining Balance:</strong> Ksh <span id="remainingBalance">0</span></p>
+        </form>
+    </div>
+
+    <!-- Timeline Section -->
+    <div class="timeline-container">
+        <h3>Loan Payment Timeline</h3>
+        <div class="timeline" id="paymentTimeline"></div>
+    </div>
+
+    <script>
+    function calculateLoan() {
+        const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+        const interestRate = 0.10; // Assuming a 10% interest rate (can be dynamically set)
+        const loanTerm = parseInt(document.getElementById('loanTerm').value);
+
+        // Calculate interest amount
+        const interestAmount = loanAmount * interestRate;
+
+        // Calculate total amount including interest
+        const totalWithInterest = loanAmount + interestAmount;
+
+        // Update the interest and total amount in the UI
+        document.getElementById('interestAmount').textContent = interestAmount.toFixed(2);
+        document.getElementById('totalWithInterest').textContent = totalWithInterest.toFixed(2);
+
+        // Remaining balance (initially same as total with interest)
+        document.getElementById('remainingBalance').textContent = totalWithInterest.toFixed(2);
+
+        // Update the timeline (scrollable number line for payment months)
+        updatePaymentTimeline(loanTerm);
+    }
+
+    function updatePaymentTimeline(loanTerm) {
+        const timeline = document.getElementById('paymentTimeline');
+        timeline.innerHTML = ''; // Clear any previous timeline
+
+        // Create month numbers for the timeline
+        for (let month = 1; month <= loanTerm; month++) {
+            const monthDiv = document.createElement('div');
+            monthDiv.classList.add('month');
+            monthDiv.textContent = month;
+
+            // Add event listener for smooth scroll on click
+            monthDiv.addEventListener('click', () => {
+                smoothScrollToMonth(monthDiv);
+            });
+
+            timeline.appendChild(monthDiv);
+        }
+    }
+
+    function smoothScrollToMonth(monthDiv) {
+        const timeline = document.getElementById('paymentTimeline');
+        const monthPosition = monthDiv.offsetLeft - (timeline.offsetWidth / 2) + (monthDiv.offsetWidth / 2);
+
+        // Scroll the timeline to the selected month with smooth animation
+        timeline.scrollTo({
+            left: monthPosition,
+            behavior: 'smooth'
+        });
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+/* Reset some basic elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+header {
+    background-color: #34495e;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+aside{
+    font-size: 20px;
+}
+header h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+header p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Wrap nav items on smaller screens */
+    font-size: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+    display: block; /* Ensure links are block-level on small screens */
+}
+
+nav a:hover {
+    background-color: #004099;
+    border-radius: 5px;
+}
+
+aside {
+    background-color: #333;
+    color: #fff;
+    width: 250px;
+    padding: 20px;
+    position: fixed;
+    top: 80px; /* Adjust according to header height */
+    bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden; /* Prevent horizontal scroll in sidebar */
+}
+
+aside ul {
+    list-style: none;
+}
+
+aside ul li {
+    margin-bottom: 15px;
+}
+
+aside ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+aside ul li a:hover {
+    background-color: #444;
+    border-radius: 5px;
+}
+
+main {
+    margin-left: 270px; /* Adjust according to aside width */
+    padding: 20px;
+    flex: 1;
+    background-color: #f4f4f4;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.overview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stat {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1 1 200px;
+    text-align: center;
+}
+
+.stat h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.stat p {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.charts {
+    margin-top: 40px;
+}
+
+.chart-container {
+    margin-bottom: 40px;
+    overflow-x: hidden; /* Prevent horizontal scrolling in chart containers */
+    width: 100%; /* Ensure chart container takes full width of its parent */
+    max-width: 1200px; /* Set a maximum width for larger screens */
+    padding: 0 10px; /* Add padding to ensure charts are not too close to edges */
+}
+
+.chart {
+    width: 100%; /* Ensure the chart itself takes the full width of the container */
+    height: auto; /* Adjust height automatically */
+}
+
+/* Responsive Design for Widescreens */
+@media screen and (min-width: 1200px) {
+    .chart-container {
+        width: 90%; /* Adjust width for larger screens */
+        margin: 0 auto; /* Center the container */
+    }
+
+    .chart {
+        height: 500px; /* Set a specific height for charts on larger screens */
+    }
+}
+
+/* Responsive Design for Mobile Devices */
+@media screen and (max-width: 768px) {
+    aside {
+        position: static;
+        width: 100%;
+        margin-bottom: 20px; /* Added margin to separate sidebar from main content */
+    }
+
+    main {
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .overview {
+        flex-direction: column;
+    }
+
+    .stat {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    header h1 {
+        font-size: 18px;
+    }
+
+    header p, nav a {
+        font-size: 12px;
+    }
+
+    nav a {
+        padding: 5px 7px;
+    }
+
+    aside ul li a {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .stat h3, .stat p {
+        font-size: 16px;
+    }
+}

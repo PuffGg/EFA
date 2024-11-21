@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports Section</title>
+    <style>
+        /* Modern CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --border-radius: 0.75rem;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            padding: 1.5rem;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            gap: 2rem;
+            grid-template-columns: 1fr;
+        }
+
+        /* Header Styling */
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        /* Card Layout */
+        .card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            padding: 1.5rem;
+        }
+
+        /* Filters Section */
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filters input {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+
+        .filters input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filters button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .filters button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Summary Cards */
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .summary-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* Charts Section */
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            background-color: var(--card-background);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            min-height: 400px;
+        }
+
+        /* Table Styling */
+        .table-container {
+            overflow-x: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            background-color: var(--card-background);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th {
+            background-color: var(--background-color);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 1rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Export Options */
+        .export-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .export-options button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--warning-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .export-options button:hover {
+            filter: brightness(110%);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .charts {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .export-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .export-options button {
+                width: 100%;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sales Report</h1>
+
+        <!-- Filter Section -->
+        <div class="filters">
+            <input type="date" id="start-date" name="start-date">
+            <input type="date" id="end-date" name="end-date">
+            <button onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary">
+            <div class="summary-card">
+                <p>Total Sales</p>
+                <span id="total-sales">$0</span>
+            </div>
+            <div class="summary-card">
+                <p>Most Sold Product</p>
+                <span id="most-sold-product">N/A</span>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-container">
+                <canvas id="salesLineChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="categoryBarChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Detailed Table -->
+        <div class="table-container">
+            <table id="sales-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic table rows will go here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Export Options -->
+        <div class="export-options">
+            <button onclick="downloadCSV()">Download as CSV</button>
+            <button onclick="downloadExcel()">Export to Excel</button>
+        </div>
+    </div>
+
+    <script>
+        // Dummy data for the report
+        const salesData = [
+            { date: '2024-11-01', product: 'Product A', amount: 100 },
+            { date: '2024-11-02', product: 'Product B', amount: 200 },
+            { date: '2024-11-03', product: 'Product A', amount: 150 },
+            { date: '2024-11-04', product: 'Product C', amount: 250 },
+            { date: '2024-11-05', product: 'Product B', amount: 180 },
+            { date: '2024-11-06', product: 'Product A', amount: 220 },
+            { date: '2024-11-07', product: 'Product C', amount: 300 },
+        ];
+
+        // Initialize the report with dummy data
+        function initReport() {
+            const totalSales = salesData.reduce((total, sale) => total + sale.amount, 0);
+            const productSales = salesData.reduce((acc, sale) => {
+                acc[sale.product] = (acc[sale.product] || 0) + sale.amount;
+                return acc;
+            }, {});
+            const mostSoldProduct = Object.keys(productSales).reduce((a, b) => productSales[a] > productSales[b] ? a : b);
+
+            // Update summary
+            document.getElementById('total-sales').innerText = `$${totalSales}`;
+            document.getElementById('most-sold-product').innerText = mostSoldProduct;
+
+            // Populate table with data
+            const tableBody = document.getElementById('sales-table').getElementsByTagName('tbody')[0];
+            salesData.forEach(sale => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).innerText = sale.date;
+                row.insertCell(1).innerText = sale.product;
+                row.insertCell(2).innerText = `$${sale.amount}`;
+            });
+
+            // Prepare data for charts
+            const salesOverTime = salesData.map(sale => sale.amount);
+            const dates = salesData.map(sale => sale.date);
+            const salesByCategory = Object.keys(productSales).map(product => ({
+                product,
+                sales: productSales[product]
+            }));
+
+            renderCharts(salesOverTime, dates, salesByCategory);
+        }
+
+        // Render the charts using Chart.js
+        function renderCharts(salesOverTime, dates, salesByCategory) {
+            const ctxLine = document.getElementById('salesLineChart').getContext('2d');
+            const ctxBar = document.getElementById('categoryBarChart').getContext('2d');
+
+            // Line chart for sales over time
+            new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Sales Over Time',
+                        data: salesOverTime,
+                        borderColor: '#3498db',
+                        fill: false,
+                    }],
+                },
+            });
+
+            // Bar chart for sales by category
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: salesByCategory.map(item => item.product),
+                    datasets: [{
+                        label: 'Sales by Category',
+                        data: salesByCategory.map(item => item.sales),
+                        backgroundColor: ['#e74c3c', '#2ecc71', '#f39c12'],
+                    }],
+                },
+            });
+        }
+
+        // Apply filters (dummy function to simulate filtering)
+        function applyFilters() {
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            console.log(`Filtering reports from ${startDate} to ${endDate}`);
+            // Filter the sales data based on the selected date range
+            // Here, you would need to actually filter the salesData array based on startDate and endDate.
+        }
+
+        // Download CSV
+        function downloadCSV() {
+            const rows = [
+                ["Date", "Product", "Amount"],
+                ...salesData.map(sale => [sale.date, sale.product, `$${sale.amount}`])
+            ];
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            rows.forEach(row => {
+                csvContent += row.join(",") + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "sales_report.csv");
+            link.click();
+        }
+
+        // Download Excel
+        function downloadExcel() {
+            const ws = XLSX.utils.aoa_to_sheet([
+                ["Date", "Product", "Amount"],
+                ...salesData.map(sale => [sale.date, sale.product, sale.amount])
+            ]);
+
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Sales Report");
+
+            XLSX.writeFile(wb, "sales_report.xlsx");
+        }
+
+        // Initialize the report on page load
+        window.onload = initReport;
+    </script>
+
+</body>
+</html>

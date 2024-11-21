@@ -1,0 +1,207 @@
+:root {
+    --primary-color: #d5e1fc;
+    --secondary-color: #3b82f6;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --background-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --border-radius: 1rem;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container Layout */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    flex: 1;
+}
+
+/* Box Styling */
+.box {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Box */
+.box:first-child {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.box:first-child h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.box:first-child p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Statistics Boxes */
+.total-meetings,
+.total-missed,
+.total-attendance {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.total-meetings {
+    background-color: var(--card-bg);
+    border-left: 4px solid var(--primary-color);
+}
+
+.total-missed {
+    background-color: var(--card-bg);
+    border-left: 4px solid var(--warning-color);
+}
+
+.total-attendance {
+    background-color: var(--card-bg);
+    border-left: 4px solid var(--success-color);
+}
+
+/* Box Content Styling */
+.box h3 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.box p {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+ 
+
+/* Calendar Box */
+.note {
+    background-color: var(--card-bg);
+    border-left: 4px solid var(--secondary-color);
+}
+
+.note a {
+    text-decoration: none;
+    color: var(--text-primary);
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.note:hover {
+    background-color: var(--primary-color);
+}
+
+.note:hover h3 {
+    color: white;
+}
+
+
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #4b5563;
+    color: #ffffff;
+    margin-top: 2rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .box {
+        padding: 1.25rem;
+    }
+
+    .box h3 {
+        font-size: 1.1rem;
+    }
+
+    .box p {
+        font-size: 1.75rem;
+    }
+}
+
+/* Additional Visual Enhancements */
+.box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.box:hover::before {
+    opacity: 1;
+}
+
+/* Animation for Numbers */
+@keyframes countUp {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.box p {
+    animation: countUp 0.5s ease-out forwards;
+}

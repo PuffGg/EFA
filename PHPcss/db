@@ -1,0 +1,238 @@
+
+ 1. `users` Table
+Stores basic user information.
+
+sql
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role_id INT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    membership_code VARCHAR(50) NOT NULL UNIQUE,
+    gender CHAR(1) CHECK (gender IN ('M', 'F')),
+    dob DATE NOT NULL,
+    contact VARCHAR(15),
+    registered BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_dept_id INT, -- The new column added
+    image LONGBLOB,  -- Stores the image as binary data
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
+    FOREIGN KEY (user_dept_id) REFERENCES user_departments(user_dept_id)
+);
+
+
+
+
+
+CREATE TABLE logins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    login_time DATETIME,
+    logout_time DATETIME,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+)
+
+
+
+
+
+
+
+### 2. `roles` Table
+Stores different user roles.
+
+sql
+CREATE TABLE roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+INSERT INTO roles (role_name) VALUES ('MEMBER');
+INSERT INTO roles (role_name) VALUES ('ADMINISTRATOR');
+
+```
+
+### 3. `departments` Table
+Stores various departments for users.
+
+```sql
+CREATE TABLE departments (
+    department_id INT AUTO_INCREMENT PRIMARY KEY,
+    department_name VARCHAR(100) UNIQUE NOT NULL
+);
+
+INSERT INTO departments (department_name) VALUES
+('ADMINISTRATION'),
+('CHARITY'),
+('SPECIAL NEEDS'),
+('PROJECT MANAGEMENT'),
+('YOUTH INITIATIVE'),
+('ADVISORY BOARD');
+
+
+
+
+
+CREATE TABLE user_departments (
+    user_dept_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    department_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (department_id) REFERENCES departments(department_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE user_role (
+    user_id INT,
+    role_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
+    PRIMARY KEY (user_id, role_id)
+);
+
+
+
+CREATE TABLE Meetings (
+    meeting_id INT AUTO_INCREMENT PRIMARY KEY,
+    meeting_date DATE NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    total_duration TIME AS (TIMEDIFF(end_time, start_time)) STORED,  -- Automatically calculates the duration
+    week INT,
+    month VARCHAR(20),  -- Month name or numerical
+    year YEAR,
+    user_id INT,  -- User ID to link with the user who created the meeting
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  -- Foreign key constraint
+);
+
+
+CREATE TABLE transaction_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    type_name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO transaction_types (type_name)
+VALUES 
+('Deposit'),        -- ID 1
+('Withdrawal'),     -- ID 2
+('Loan Request'),   -- ID 3
+('Loan Payment');   -- ID 4
+
+
+
+CREATE TABLE loan_statuses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    status_name VARCHAR(255) NOT NULL
+);
+
+INSERT INTO loan_statuses (status_name)
+VALUES 
+('Pending'),    -- ID 1
+('Approved'),   -- ID 2
+('Paid');       -- ID 3
+
+
+CREATE TABLE user_transactions (
+    user_transactions_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    membership_code VARCHAR(50),
+    transaction_type_id INT NOT NULL,
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (membership_code) REFERENCES users(membership_code),
+    FOREIGN KEY (transaction_type_id) REFERENCES transaction_types(id)
+);
+
+
+CREATE TABLE investments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,  -- Added user_id column to track the user
+    user_transactions_id INT NOT NULL,  -- Replacing membership_code with user_transactions_id
+    amount DECIMAL(15, 2) DEFAULT 0.00,
+    balance DECIMAL(15, 2) DEFAULT 0.00,
+    withdrawal DECIMAL(15, 2) DEFAULT 0.00,  -- Added withdrawal column
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_user_transaction (user_transactions_id),  -- Ensure one investment per user_transaction
+    FOREIGN KEY (user_transactions_id) REFERENCES user_transactions(user_transactions_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  -- Foreign key referencing the users table
+);
+
+/////CREATE TABLE investments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_transactions_id INT NOT NULL,  -- Replacing membership_code with user_transactions_id
+    amount DECIMAL(15, 2) DEFAULT 0.00,
+    withdrawal DECIMAL(15, 2) DEFAULT 0.00,
+    balance DECIMAL(15, 2) DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_user_transaction (user_transactions_id),  -- Ensure one investment per user_transaction
+    FOREIGN KEY (user_transactions_id) REFERENCES user_transactions(user_transactions_id) ON DELETE CASCADE
+);//////
+
+CREATE TABLE loans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    membership_code VARCHAR(50),
+    loan_requested DECIMAL(15, 2) DEFAULT 0.00,
+    loan_payed DECIMAL(15, 2) DEFAULT 0.00,
+    loan_balance DECIMAL(15, 2) DEFAULT 0.00,
+    rate_value DECIMAL(5, 2) NOT NULL, -- New column for interest
+    loan_status_id INT NOT NULL,
+    loan_request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    loan_approval_date TIMESTAMP NULL,
+    loan_payment_date TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (membership_code) REFERENCES users(membership_code),
+    FOREIGN KEY (loan_status_id) REFERENCES loan_statuses(id),
+    FOREIGN KEY (rate_value) REFERENCES interest_rates (rate_value)
+);
+
+CREATE TABLE interest_rates (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    rate_name VARCHAR(255) NOT NULL,   -- Example: "Savings", "Investment"
+    rate_value DECIMAL(5, 2) NOT NULL, -- Example: 5.00 (representing 5%)
+    user_id INT NOT NULL,              -- Track the user who made the change
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  -- Assuming 'id' is the primary key in the 'users' table
+);
+
+-- Insert Loan interest rate
+INSERT INTO interest_rates (rate_name, rate_value) 
+VALUES ('Loans', 8.50);  -- Example: 8.50% interest rate for Loans
+
+INSERT INTO interest_rates (user_id, rate_name, rate_value) 
+VALUES (1, 'Loans', 8.50);
+
+-- Insert Savings interest rate
+INSERT INTO interest_rates (user_id,rate_name, rate_value) 
+VALUES (1,'Savings', 4.00);  -- Example: 4.00% interest rate for Savings
+
+
+CREATE TABLE admin_pins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    role_id INT NOT NULL, -- Foreign key referencing the roles table
+    user_id INT NOT NULL, -- Foreign key referencing the users table
+    user_dept_id INT NOT NULL, -- Foreign key referencing the user_departments table
+    hashed_pin VARCHAR(255) NOT NULL, -- Securely hashed PIN
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    -- Foreign key constraints
+    FOREIGN KEY (role_id) REFERENCES roles(role_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_dept_id) REFERENCES user_departments(user_dept_id) ON DELETE CASCADE
+);
+
+CREATE TABLE messages (
+    message_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    message TEXT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (sender_id) REFERENCES users(user_id),
+    FOREIGN KEY (receiver_id) REFERENCES users(user_id)
+);

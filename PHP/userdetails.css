@@ -1,0 +1,101 @@
+/* General body styles */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #e3eaf1, #34495e); /* Gradient background */
+  font-family: 'Roboto', sans-serif;
+  overflow: auto; /* Allow scrolling if content overflows */
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Container styles */
+.container {
+  width: 90%;
+  max-width: 400px;
+  background-color: white; /* White background for the container */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Elegant shadow */
+  text-align: center;
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  max-height: 90vh; /* Limit container height */
+  box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+/* Input field and select styles */
+input[type="text"],
+select,
+input[type="radio"] {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Label styles */
+label {
+  font-size: 16px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Button styles */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #d9ddec;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4caf50;
+}
+
+/* Fieldset styles */
+fieldset {
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Legend styles */
+legend {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+/* Error message styles */
+.error {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff0000;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 600px) {
+  .container {
+      padding: 15px;
+  }
+
+  button {
+      font-size: 14px;
+  }
+}
